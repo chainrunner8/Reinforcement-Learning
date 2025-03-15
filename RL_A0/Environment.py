@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Practical for course 'Reinforcement Learning',
@@ -133,7 +132,7 @@ class StochasticWindyGridworld:
         for s in range(self.n_states):
             for a in range(self.n_actions):
                 s_location = self._state_to_location(s)  
-                    
+
                 # if s is goal state (terminal) make it a self-loop without rewards
                 state_is_a_goal = np.any([np.all(goal_location == s_location) for goal_location in self.goal_locations])
                 if state_is_a_goal: 
@@ -142,7 +141,7 @@ class StochasticWindyGridworld:
                     r_sas[s,a,] = np.zeros(self.n_states)  
                 else:
                     # check what happens if the wind blows:
-                    next_location_with_wind = np.copy(s_location) 
+                    next_location_with_wind = np.copy(s_location)
                     next_location_with_wind += self.action_effects[a] # effect of action
                     next_location_with_wind = np.clip(next_location_with_wind,(0,0),np.array(self.shape)-1) # bound within grid
                     next_location_with_wind[1] += self.winds[next_location_with_wind[0]] # Apply effect of wind
@@ -237,7 +236,7 @@ def full_argmax(x):
 
 def test():
     # Hyperparameters
-    n_test_steps = 25
+    n_test_steps = 100
     step_pause = 0.5
     
     # Initialize environment and Q-array
