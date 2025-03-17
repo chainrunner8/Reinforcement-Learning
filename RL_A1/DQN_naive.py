@@ -67,7 +67,7 @@ if __name__ == "__main__":
     optimiser = optim.Adam(QNet.parameters(), lr=lr)
 
     n_steps = 10**6
-    eval_freq = 1000
+    eval_freq = 10_000
     returns = [0]
     UTD_ratio = 5
     done = True
