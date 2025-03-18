@@ -143,8 +143,6 @@ def smooth(array, window):
 
 if __name__ == "__main__":
     try: 
-        plt.figure(figsize=(12, 8))
-        plt.savefig(f'param_tuning/test.png')
         # environment init:
         vec_env_main = SubprocVecEnv([makeEnv for _ in range(NUM_ENVS)])
         env_eval = gym.make('CartPole-v1')
@@ -155,25 +153,26 @@ if __name__ == "__main__":
         n_trials = 5
         
         # hyperparam tuning:
-        # learning_rates = [0.0001, 0.0005, 0.001]
-        # epsilon_decays = [0.9999, 0.99995, 0.99999]
-        #     # decay of 0.9999 -> eps min reached after 46k steps
-        #     # decay of 0.99999 -> eps min reached after 460k steps
+        learning_rates = [0.0001, 0.0005, 0.001]
+        epsilon_decays = [0.9999, 0.99995, 0.99999]
+            # decay of 0.9999 -> eps min reached after 46k steps
+            # decay of 0.99999 -> eps min reached after 460k steps
         network_sizes = [(1, 64), (2, 64), (2, 128)]
         UTD_ratios = [1, 5, 10]
 
         # first we tune the learning rate and epsilon decay via grid search
         # while keeping other hyperparams at medium:
-        # combinations = list(itertools.product(learning_rates, epsilon_decays))
-        # QNet_params = [[lr, eps_dk, 2, 64, 5] for lr, eps_dk in combinations]
-        net_size_params = [[0.0005, 0.9999, layers, neurons, 5] for layers, neurons in network_sizes]
-        # UTD_params = [[0.0005, 0.9999, 2, 64, utd] for utd in UTD_ratios]
-        QNet_params = net_size_params
+        combinations = list(itertools.product(learning_rates, epsilon_decays))
+        QNet_params = [[lr, eps_dk, 2, 64, 5] for lr, eps_dk in combinations]
+        # net_size_params = [[0.0005, 0.9999, layers, neurons, 5] for layers, neurons in network_sizes]
+        # UTD_params = [[0.0005, 0.9999, 1, 64, utd] for utd in UTD_ratios]
+        QNet_params = [[lr, eps_dk, 2, 64, 5] for lr, eps_dk in combinations]
 
         results = []
         k=0  # image counter
         colours = ['darkcyan', 'blueviolet', 'firebrick']
 
+        # plt.figure(figsize=(12, 8))
         for param_vec in QNet_params:
             total_time = 0
 
@@ -207,7 +206,7 @@ if __name__ == "__main__":
             plt.figure(figsize=(12, 8))
             plt.plot(
                 np.linspace(0, n_steps, n_steps // eval_freq + 1), smoothed_mean
-                , label='average return', color='darkcyan'
+                , label=f'lr={param_vec[0]}, eps_decay={param_vec[1]}', color=colours[k]
             )
             plt.fill_between(
                 np.linspace(0, n_steps, n_steps // eval_freq + 1), smoothed_min, smoothed_max
@@ -217,7 +216,7 @@ if __name__ == "__main__":
             plt.ylabel('Average return')
             plt.title(f'Greedy policy average return over {n_steps} steps (lr={param_vec[0]}, eps_decay={param_vec[1]})')
             plt.legend()
-            plt.savefig(f'param_tuning/network_size.png')
+            plt.savefig(f'param_tuning/grid_search_{k}.png')
             k+=1
 
         # plot heatmap:
