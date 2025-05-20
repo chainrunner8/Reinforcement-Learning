@@ -1,0 +1,17 @@
+,pair,mean,se_mean,std,se_std
+0,"GD_epochs=1, batch_size=32",252.55,4.74,135.47,2.27
+1,"GD_epochs=1, batch_size=64",278.93,5.0,138.27,2.52
+2,"GD_epochs=1, batch_size=128",210.92,5.9,168.78,3.33
+3,"GD_epochs=1, batch_size=256",202.89,6.45,178.21,3.31
+4,"GD_epochs=5, batch_size=32",466.76,2.51,74.37,5.06
+5,"GD_epochs=5, batch_size=64",370.94,4.68,127.21,2.85
+6,"GD_epochs=5, batch_size=128",447.69,3.26,92.4,4.22
+7,"GD_epochs=5, batch_size=256",323.1,4.32,125.58,2.4
+8,"GD_epochs=10, batch_size=32",495.09,1.69,48.47,8.79
+9,"GD_epochs=10, batch_size=64",495.07,1.69,48.61,8.68
+10,"GD_epochs=10, batch_size=128",466.21,2.57,72.0,5.28
+11,"GD_epochs=10, batch_size=256",449.25,3.93,113.09,4.61
+12,"GD_epochs=25, batch_size=32",495.05,1.75,48.67,8.89
+13,"GD_epochs=25, batch_size=64",466.38,3.0,89.17,4.6
+14,"GD_epochs=25, batch_size=128",495.09,1.81,48.37,9.34
+15,"GD_epochs=25, batch_size=256",476.16,2.47,68.91,5.92
